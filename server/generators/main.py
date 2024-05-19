@@ -1,49 +1,38 @@
-from generators.plot import generate_plot
-from generators.bar import generate_bar_plot
-
-
+from line import line_plot_generator
+from bar import bar_plot_generator
+from pie import pie_plot_generator
+import sys
 
 def main():
-    plot_type = input("Please select the type of plot your want (line, bar): ")
+    # Extract parameters from command line arguments
+    plotType = sys.argv[1]
 
-    if plot_type.lower() == 'line':
-        # Get user input for axis labels
-        x_label = input("Enter the label for the x-axis: ")
-        y_label = input("Enter the label for the y-axis: ")
-        # Get user input for axis values
-        x_values = input("Enter values for the x-axis separated by spaces: ").split()
-        y_values = input("Enter values for the y-axis separated by spaces: ")
-        y_values = list(map(float, y_values.split()))
-        # Check if the number of y-values matches the number of x-values
-        if len(y_values) != len(x_values):
-            print("Number of y-values must match the number of x-values.")
-            return
-        # Generate the plot
-        generate_plot(x_label, y_label, x_values, y_values)
-        main()
+    # check plot type extract args from command line then execute generator
+    if plotType == 'line' or plotType == 'bar':
+        title, xLabel, yLabel, xValues, yValues = sys.argv[2:]
+        b64Plot = line_plot_generator(title, xLabel, yLabel, xValues, yValues)
 
-    elif plot_type.lower() == 'bar':
-        # Get user input for axis labels
-        x_label = input("Enter the label for the x-axis: ")
-        y_label = input("Enter the label for the y-axis: ")
+    elif plotType == 'bar':
+        title, xLabel, yLabel, xValues, yValues = sys.argv[2:]
+        b64Plot = bar_plot_generator(title, xLabel, yLabel, xValues, yValues)
 
-        # Get user input for axis values
-        x_values = input("Enter values for the x-axis separated by spaces: ").split()
-        y_values = input("Enter values for the y-axis separated by spaces: ")
-        y_values = list(map(float, y_values.split()))
+    elif plotType == 'pie':
+        title, labels, sizes = sys.argv[2:]
+        # return labels, sizes, title
+        b64Plot = pie_plot_generator(title, labels, sizes)
 
-        # Check if the number of y-values matches the number of x-values
-        if len(y_values) != len(x_values):
-            print("Number of y-values must match the number of x-values.")
-            return
-
-        # Generate the plot
-        generate_bar_plot(x_label, y_label, x_values, y_values)
-        main()
-    
+    elif plotType == 'scatter':
+        b64Plot = 'FAKE SCATTER PLOT GENERATED'
+    elif plotType == 'stair':
+        b64Plot = 'FAKE STAIR PLOT GENERATED'
     else:
-        print(f'{plot_type} either isnt available or isnt valid. Choose again')
-        main()
+        b64Plot = 'PLOT TYPE UNAVAILABLE'      
+
+    # Return the base64 string
+    return b64Plot 
+
+
 
 if __name__ == "__main__":
-    main()
+    b64PlotImg = main()
+    print(b64PlotImg)

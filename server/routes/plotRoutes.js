@@ -4,48 +4,69 @@ const { spawn } = require("child_process");
 const router = express.Router();
 
 // Route for creating a plot of any type
-router.get("/create/:type", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
-    const plotType = req.params.type;
-    const { title, xLabel, yLabel, xValues, yValues } = req.body;
+    const { plotType } = req.body;
 
-    // Validate request body
-    if (!title || !xLabel || !yLabel || !xValues || !yValues) {
-      return res.status(400).json({ message: "Missing required parameters." });
+    let args = [];
+    let plotBase64 = "";
+
+    // Extract plot data and set arguments based on plot type
+    if (plotType === "line" || plotType === "bar") {
+      const { title, xLabel, yLabel, xValues, yValues, plotType } = req.body;
+      console.log("Received plot data:", {
+        title,
+        xLabel,
+        yLabel,
+        xValues,
+        yValues,
+      });
+      args = [plotType, title, xLabel, yLabel, xValues, yValues];
+
+    } else if (plotType === "pie") {
+      const { title, xValues, yValues, plotType } = req.body;
+      console.log("Received pie data:", { 
+        title, 
+        xValues, 
+        yValues, 
+      });
+      args = [plotType, title, xValues, yValues];
+      
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Invalid/Unavailable plot type." });
     }
 
-    const plotGenerator = spawn('python3', ['generators/line.py', title, xLabel, yLabel, xValues, yValues, plotType]);
+    // Spawn python process passing in the plot data
+    const plotGenerator = spawn("python3", [`generators/main.py`, ...args]);
 
-    let plotBase64 = '';
-
-    plotGenerator.stdout.on('data', (data) => {
-      // Append data to the plotBase64 string
+    // get plot generator output (plot is base64)
+    plotGenerator.stdout.on("data", (data) => {
       plotBase64 += data.toString();
     });
 
-    plotGenerator.on('close', (code) => {
-      if (plotBase64 !== '') {
-        console.log(`CODE: ${code}`)
-        // Send plot image data to the client
+    // close python process and send response
+    plotGenerator.on("close", (code) => {
+      if (plotBase64 !== "") {
+        console.log(`CODE: ${code}`);
+        console.log(`RECEIVED PLOT: ${plotBase64}`);
         res.status(200).send(plotBase64);
-        console.log(`RECEIVED PLOT: ${plotBase64}`)
       } else {
-        console.log('Plot data is empty');
-        res.status(500).json({ message: "Error generating plot." });
+        res.status(500).json({ message: "Error retreiving plot img string." });
       }
     });
 
-    plotGenerator.stderr.on('data', (data) => {
-      console.error(`stderr: ${data}`);
+    // handle errors with data output
+    plotGenerator.stderr.on("data", (data) => {
+      // res.status(500).json({ message: `stderr: ${data}`});
+      console.log(`stderr: ${data}`);
     });
-
-    plotGenerator.on('error', (error) => {
-      console.error(`Error executing Python script: ${error}`);
+    // handle errors when executing script
+    plotGenerator.on("error", (error) => {
       res.status(500).json({ message: "Error executing Python script." });
     });
-
   } catch (error) {
-    console.error("Error generating plot:", error);
     res.status(500).json({ message: "Internal server error." });
   }
 });

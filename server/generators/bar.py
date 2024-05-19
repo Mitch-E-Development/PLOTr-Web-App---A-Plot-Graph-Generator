@@ -1,12 +1,32 @@
 import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
 
-def generate_bar_plot(x_label, y_label, x_values, y_values):
+def bar_plot_generator(title, xLabel, yLabel, xValues, yValues):
+    # convert y values to floats
+    yValues = list(map(float, yValues.split(',')))
+
+    # Convert x values to strings
+    xValues = xValues.split(',')
+
     # Create the plot
     plt.figure(figsize=(8, 6))
-    plt.bar(x_values, y_values)
-    plt.xlabel(x_label)
-    plt.ylabel(y_label)
-    plt.title('User Generated Plot')
+    plt.bar(xValues, yValues)
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
+    plt.title(title)
     plt.xticks(rotation=45, ha='right')
     plt.grid(True)
-    plt.show()
+
+    # ave the plot to a BytesIO object
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # convert the plot to a base64 string
+    imgStr = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    # close the plot to release memory
+    plt.close()
+
+    return imgStr
