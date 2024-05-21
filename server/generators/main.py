@@ -1,6 +1,8 @@
 from line import line_plot_generator
 from bar import bar_plot_generator
 from pie import pie_plot_generator
+from stair import stair_plot_generator
+from scatter import scatter_plot_generator
 import sys
 
 def main():
@@ -8,7 +10,7 @@ def main():
     plotType = sys.argv[1]
 
     # check plot type extract args from command line then execute generator
-    if plotType == 'line' or plotType == 'bar':
+    if plotType == 'line':
         title, xLabel, yLabel, xValues, yValues = sys.argv[2:]
         b64Plot = line_plot_generator(title, xLabel, yLabel, xValues, yValues)
 
@@ -18,13 +20,16 @@ def main():
 
     elif plotType == 'pie':
         title, labels, sizes = sys.argv[2:]
-        # return labels, sizes, title
         b64Plot = pie_plot_generator(title, labels, sizes)
 
     elif plotType == 'scatter':
-        b64Plot = 'FAKE SCATTER PLOT GENERATED'
+        title, xLabel, yLabel, xValues, yValues = sys.argv[2:]
+        b64Plot = scatter_plot_generator(title, xLabel, yLabel, xValues, yValues)
+
     elif plotType == 'stair':
-        b64Plot = 'FAKE STAIR PLOT GENERATED'
+        title, xLabel, yLabel, xValues, yValues = sys.argv[2:]
+        b64Plot = stair_plot_generator(title, xLabel, yLabel, xValues, yValues)
+        
     else:
         b64Plot = 'PLOT TYPE UNAVAILABLE'      
 

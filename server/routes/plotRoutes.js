@@ -12,7 +12,10 @@ router.post("/create", async (req, res) => {
     let plotBase64 = "";
 
     // Extract plot data and set arguments based on plot type
-    if (plotType === "line" || plotType === "bar") {
+    if (plotType === "line" || 
+        plotType === "bar" ||
+        plotType === 'scatter' ||
+        plotType === 'stair') {
       const { title, xLabel, yLabel, xValues, yValues, plotType } = req.body;
       console.log("Received plot data:", {
         title,

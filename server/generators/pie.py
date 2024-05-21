@@ -10,7 +10,7 @@ def pie_plot_generator(title, labels, sizes, colors=None, explode=None):
     labels = labels.split(',')
 
     # create the plot
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     plt.pie(sizes, 
             labels=labels, 
             colors=colors, 

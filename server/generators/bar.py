@@ -10,13 +10,16 @@ def bar_plot_generator(title, xLabel, yLabel, xValues, yValues):
     xValues = xValues.split(',')
 
     # Create the plot
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(10, 8))
     plt.bar(xValues, yValues)
     plt.xlabel(xLabel)
     plt.ylabel(yLabel)
     plt.title(title)
-    plt.xticks(rotation=45, ha='right')
+    # plt.xticks(rotation=90, ha='right')
     plt.grid(True)
+
+    # Set the limits for y-axis to have zero at the bottom
+    plt.ylim(bottom=0)
 
     # ave the plot to a BytesIO object
     buffer = BytesIO()

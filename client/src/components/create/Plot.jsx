@@ -3,9 +3,20 @@ import React from "react";
 const Plot = ({plotIMG}) => {
   console.log('plot image', plotIMG)
   return (
-    <div className="lg:w-3/4 flex w-full justify-center items-center min-h-[100vh] bg-white">
+    <div 
+      className="
+        lg:w-3/4 
+        p-10 
+        flex 
+        justify-center 
+        items-center 
+        h-[70vh] 
+        md:h-[100vh] 
+        bg-gray-700">
       <img
-        className="" src={`data:image/png;base64,${plotIMG}`} alt="Base64 Plot"
+        className="text-white text-xl text-center" 
+        src={`data:image/png;base64,${plotIMG}`} 
+        alt="Once created, your plot will be displayed here..."
       />
     </div>
   );

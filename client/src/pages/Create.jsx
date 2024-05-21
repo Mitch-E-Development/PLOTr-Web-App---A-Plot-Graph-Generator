@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import {saveAs} from 'file-saver';
+
 import Toolbar from "../components/create/Toolbar";
 import Form from "../components/create/Form";
 import Plot from "../components/create/Plot";
@@ -17,11 +19,8 @@ const Create = () => {
   const [plotIMG, setPlotIMG] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const handleModalOpen = () => {
-    setShowModal(true);
-  };
-  const handleModalClose = () => {
-    setShowModal(false);
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
 
   const handleInput = (field, index, value) => {
@@ -97,14 +96,34 @@ const Create = () => {
       // Handle error as needed
     }
   };
+  
+  const handlePlotDownload = () => {
+    // Convert base64 string to binary data
+    const byteChars = atob(plotIMG);
+    const byteNums = new Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) {
+      byteNums[i] = byteChars.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNums);
+
+    // Create a Blob from the binary data
+    const blob = new Blob([byteArray], { type: 'image/png'})
+    // Save the Blob as a file
+    saveAs(blob, `${plotData.title}.png`)
+  }
 
   return (
-    <div className="">
+    <div >
       {/* toolbar */}
       <Toolbar
         plotData={plotData}
         handleInput={handleInput}
-        handleModalOpen={handleModalOpen}
+        handleAddValue={handleAddValue}
+        handleRemoveValue={handleRemoveValue}
+        handleClearForm={handleClearForm}
+        handleGeneratePlot={handleGeneratePlot}
+        handlePlotDownload={handlePlotDownload}
+        toggleModal={toggleModal}
       />
 
       <div className="lg:flex">
@@ -112,10 +131,7 @@ const Create = () => {
         <Form
           plotData={plotData}
           handleInput={handleInput}
-          handleAddValue={handleAddValue}
-          handleRemoveValue={handleRemoveValue}
-          handleClearForm={handleClearForm}
-          handleGeneratePlot={handleGeneratePlot}
+
         />
         {/* plot */}
         <Plot plotIMG={plotIMG} />
@@ -123,7 +139,7 @@ const Create = () => {
 
       {/* help modal */}
       {showModal && (
-        <HelpModal plotData={plotData} handleModalClose={handleModalClose} />
+        <HelpModal plotData={plotData} toggleModal={toggleModal} />
       )}
     </div>
   );

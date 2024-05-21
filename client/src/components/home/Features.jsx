@@ -1,78 +1,47 @@
 import React from "react";
+import FeatureCard from "./FeatureCard";
+
+const features = [
+  {
+    imageUrl: "https://ires-net.com/wp-content/uploads/2017/04/stats-chart.jpg",
+    name: "Multiple Plot Types",
+    description:
+      "With PLOTr, users can choose from a diverse range of plot types including bar graphs, line charts, and pie plots. PLOTr has the right plot type for your needs.",
+  },
+  {
+    imageUrl:
+      "https://static.vecteezy.com/system/resources/previews/035/162/140/non_2x/ai-generated-3d-illustration-of-pie-chart-over-black-background-with-colourful-neon-lights-3d-rendering-of-a-pie-chart-on-a-black-background-with-business-charts-and-graphs-ai-generated-free-photo.jpg",
+    name: "User-Friendly Data Entry",
+    description:
+      "Streamline your data input process with PLOTr's user-friendly form. Enjoy the flexibility of adjustable field lengths, accommodating datasets of varying sizes.",
+  },
+  {
+    imageUrl:
+      "https://wallpapers.com/images/hd/forex-2000-x-1333-background-3uui4757u4apgayb.jpg",
+    name: "Downloadable Plot Images",
+    description:
+      "Capture your plots with ease by downloading them as high-quality images. This allows you to save them for later use in documentation, presentations etc.",
+  },
+];
 
 const Features = () => {
   return (
-    <div className="p-10 py-20 space-y-10 bg-gray-700">
+    <div className="p-10 py-24 pb-56 space-y-10 bg-gray-900">
       <div className="text-center space-y-4 text-white">
-        <h2 className="text-3xl">Easy to Use</h2>
-        <p>Generating a plot is as simple as these 4 steps!</p>
+        <h2 className="text-5xl">Useful Features</h2>
+        <p className="text-xl py-4">PLOTr is simple, but boasts some handy features. See them below.</p>
       </div>
 
-      <div className="grid xl:grid-cols-2 gap-8">
-      {/* feauture 1*/}
-      <div className="grid md:grid-cols-2 gap-8 p-10 border-0 shadow-lg hover:shadow-indigo-500 rounded-lg bg-cover bg-no-repeat bg-center bg-[url('https://ires-net.com/wp-content/uploads/2017/04/stats-chart.jpg')]">
-        <div className="p-10 flex justify-center items-center">
-          <h3 className="text-white text-2xl font-semibold text-center">
-            CHOOSE FROM MULTIPLE PLOT TYPES
-          </h3>
-        </div>
-        <div className="bg-gray-700 flex justify-center items-center bg-opacity-90 p-10 rounded-lg shadow-lg">
-          <p className="text-center text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-            nunc tristique, hendrerit est at, suscipit urna. Vivamus fermentum
-            et dolor in ultricies.
-          </p>
-        </div>
+      <div className="grid lg:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <FeatureCard
+            key={index}
+            imageUrl={feature.imageUrl}
+            name={feature.name}
+            description={feature.description}
+          />
+        ))}
       </div>
-
-      {/* feauture 2*/}
-      <div className="grid md:grid-cols-2 gap-8 p-10 border-0 shadow-lg hover:shadow-indigo-500 rounded-lg bg-cover bg-no-repeat bg-center bg-[url('https://static.vecteezy.com/system/resources/previews/035/162/140/non_2x/ai-generated-3d-illustration-of-pie-chart-over-black-background-with-colourful-neon-lights-3d-rendering-of-a-pie-chart-on-a-black-background-with-business-charts-and-graphs-ai-generated-free-photo.jpg')]">
-        <div className="p-10 flex justify-center items-center">
-          <h3 className="text-white text-2xl font-semibold text-center">
-            CHOOSE FROM MULTIPLE PLOT TYPES
-          </h3>
-        </div>
-        <div className="bg-gray-700 flex justify-center items-center bg-opacity-90 p-10 rounded-lg shadow-lg">
-          <p className="text-center text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-            nunc tristique, hendrerit est at, suscipit urna. Vivamus fermentum
-            et dolor in ultricies.
-          </p>
-        </div>
-      </div>
-
-      {/* feauture 1*/}
-      <div className="grid md:grid-cols-2 gap-8 p-10 border-0 shadow-lg hover:shadow-indigo-500 rounded-lg bg-cover bg-no-repeat bg-center bg-[url('https://wallpapers.com/images/hd/forex-2000-x-1333-background-3uui4757u4apgayb.jpg')]">
-        <div className="p-10 flex justify-center items-center">
-          <h3 className="text-white text-2xl font-semibold text-center">
-            CHOOSE FROM MULTIPLE PLOT TYPES
-          </h3>
-        </div>
-        <div className="bg-gray-700 flex justify-center items-center bg-opacity-90 p-10 rounded-lg shadow-lg">
-          <p className="text-center text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-            nunc tristique, hendrerit est at, suscipit urna. Vivamus fermentum
-            et dolor in ultricies.
-          </p>
-        </div>
-      </div>
-
-      {/* feauture 1*/}
-      <div className="grid md:grid-cols-2 gap-8 p-10 border-0 shadow-lg hover:shadow-indigo-500 rounded-lg bg-cover bg-no-repeat bg-center bg-[url('https://wallpapercave.com/wp/wp8938157.jpg')]">
-        <div className="p-10 flex justify-center items-center">
-          <h3 className="text-white text-2xl font-semibold text-center">
-            CHOOSE FROM MULTIPLE PLOT TYPES
-          </h3>
-        </div>
-        <div className="bg-gray-700 flex justify-center items-center bg-opacity-90 p-10 rounded-lg shadow-lg">
-          <p className="text-center text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at
-            nunc tristique, hendrerit est at, suscipit urna. Vivamus fermentum
-            et dolor in ultricies.
-          </p>
-        </div>
-      </div>
-    </div>
     </div>
   );
 };
