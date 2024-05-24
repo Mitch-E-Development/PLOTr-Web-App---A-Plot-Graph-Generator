@@ -13,13 +13,17 @@ const Toolbar = ({
     <div
       className="
         p-4 
+
         bg-gray-900 
         text-white
         font-semibold
         sticky
+        shadow-b
+        shadow-sm
+        shadow-indigo-500
         top-0"
     >
-      <div className="flex flex-col md:flex-row gap-2 justify-between items-center ">
+      <div className="flex flex-col md:flex-row gap-2 justify-between items-center">
         <span className="flex justify-center gap-2">
           <button
             className="
@@ -72,6 +76,9 @@ const Toolbar = ({
           >
             CLEAR
           </button>
+        </span>
+
+        <span className="flex justify-center gap-2">
           <button
             className="
               bg-cyan-500 
@@ -89,9 +96,6 @@ const Toolbar = ({
           >
             GENERATE
           </button>
-        </span>
-
-        <span className="flex justify-center gap-2">
           <button
             onClick={() => handlePlotDownload()}
             className="

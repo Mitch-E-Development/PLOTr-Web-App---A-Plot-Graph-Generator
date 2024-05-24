@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import {saveAs} from 'file-saver';
+import React, { useEffect, useState } from "react";
+import { saveAs } from "file-saver";
+
+import { generatePlot } from "../services/generator";
+import { validateInput } from "../services/validator";
 
 import Toolbar from "../components/create/Toolbar";
-import Form from "../components/create/Form";
+import CreationForm from "../components/create/CreationForm";
 import Plot from "../components/create/Plot";
-import { generatePlot } from "../services/generator";
 import HelpModal from "../components/create/HelpModal";
 
 const Create = () => {
@@ -13,11 +15,12 @@ const Create = () => {
     xLabel: "",
     yLabel: "",
     xValues: ["", "", ""],
-    yValues: ["", "", ""],
+    yValues: ["","",""],
     plotType: "line",
   });
   const [plotIMG, setPlotIMG] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -89,14 +92,20 @@ const Create = () => {
 
   const handleGeneratePlot = async () => {
     try {
-      const imgString = await generatePlot(plotData);
-      setPlotIMG(imgString);
+      const validationResult = await validateInput(plotData);
+      if (validationResult.isValid) {
+        console.log("INPUT IS VALID");
+        const imgString = await generatePlot(plotData);
+        setPlotIMG(imgString);
+      } else {
+        setErrors(validationResult.errors);
+      }
     } catch (error) {
       console.error("Error generating plot:", error);
       // Handle error as needed
     }
   };
-  
+
   const handlePlotDownload = () => {
     // Convert base64 string to binary data
     const byteChars = atob(plotIMG);
@@ -107,13 +116,13 @@ const Create = () => {
     const byteArray = new Uint8Array(byteNums);
 
     // Create a Blob from the binary data
-    const blob = new Blob([byteArray], { type: 'image/png'})
+    const blob = new Blob([byteArray], { type: "image/png" });
     // Save the Blob as a file
-    saveAs(blob, `${plotData.title}.png`)
-  }
+    saveAs(blob, `${plotData.title}.png`);
+  };
 
   return (
-    <div >
+    <div>
       {/* toolbar */}
       <Toolbar
         plotData={plotData}
@@ -128,19 +137,17 @@ const Create = () => {
 
       <div className="lg:flex">
         {/* form */}
-        <Form
+        <CreationForm
           plotData={plotData}
           handleInput={handleInput}
-
+          errors={errors}
         />
         {/* plot */}
         <Plot plotIMG={plotIMG} />
       </div>
 
       {/* help modal */}
-      {showModal && (
-        <HelpModal plotData={plotData} toggleModal={toggleModal} />
-      )}
+      {showModal && <HelpModal plotData={plotData} toggleModal={toggleModal} />}
     </div>
   );
 };

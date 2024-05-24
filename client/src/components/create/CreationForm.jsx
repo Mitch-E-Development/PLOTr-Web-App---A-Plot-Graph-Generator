@@ -1,7 +1,8 @@
 import React from "react";
 
-const Form = ({ plotData, handleInput }) => {
+const CreationForm = ({ plotData, handleInput, errors }) => {
   const { plotType, title, xLabel, yLabel, xValues, yValues } = plotData;
+
 
   return (
     <div className="lg:w-1/4 py-8 px-2 bg-gray-900">
@@ -96,7 +97,8 @@ const Form = ({ plotData, handleInput }) => {
         </div>
       </div>
     </div>
+   
   );
 };
 
-export default Form;
+export default CreationForm;

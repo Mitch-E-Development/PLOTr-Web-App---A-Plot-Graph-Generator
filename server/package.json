@@ -11,8 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "base64-js": "^1.5.1",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "nodemon": "^3.1.0",
-    "python-shell": "^5.0.0"
+    "python-shell": "^5.0.0",
+    "yup": "^1.4.0"
   }
 }
