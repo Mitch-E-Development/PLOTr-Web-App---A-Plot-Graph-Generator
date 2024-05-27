@@ -3,7 +3,7 @@ import Content from '../components/landing/Content'
 
 const Landing = () => {
   return (
-    <div className='landing-page-container'>
+    <div className=''>
       <Content />
     </div>
   )

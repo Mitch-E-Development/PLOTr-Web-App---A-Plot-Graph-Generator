@@ -21,10 +21,9 @@ const SummaryCard = ({ name, description, imageUrl }) => {
           rounded-lg 
           min-h-[200px] 
           bg-gray-200 
-          shadow-md 
-          shadow-indigo-500 
-          hover:shadow-lg 
-          hover:shadow-green-500 
+          shadow-black
+          hover:shadow-indigo-500 
+          shadow-lg 
           text-center 
           space-y-4  
           p-4 
@@ -55,7 +54,7 @@ const SummaryCard = ({ name, description, imageUrl }) => {
           min-h-[200px] 
           bg-gray-200 
           shadow-lg 
-          shadow-orange-500 
+          shadow-indigo-500 
           text-center 
           space-y-4"
       >

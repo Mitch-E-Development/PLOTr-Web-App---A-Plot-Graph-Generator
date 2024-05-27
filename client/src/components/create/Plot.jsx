@@ -27,6 +27,9 @@ const Plot = ({ plotIMG }) => {
         justify-center 
         items-center 
         p-4
+        md:p-10
+        lg:p-20
+        xl:p-30
         bg-gray-700"
         >
           <img

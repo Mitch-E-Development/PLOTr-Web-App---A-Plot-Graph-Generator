@@ -7,7 +7,15 @@ const Header = () => {
   return (
     <div className="">
       {pathname !== "/" ? (
-        <div className="flex justify-between items-center bg-gray-200 px-4 p-2 ">
+        <div 
+          className="
+            flex 
+            justify-between 
+            items-center 
+            bg-gray-200 
+            px-4 
+            p-2"
+        >
           <div className="flex items-center gap-2">
             <img
               className="w-14"

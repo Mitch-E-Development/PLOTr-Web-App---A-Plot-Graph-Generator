@@ -1,22 +1,27 @@
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
-import numpy as np
+import random
+import matplotlib.colors as mcolors
+
 
 def bar_plot_generator(title, xLabel, yLabel, xValues, yValues):
     # convert y values to floats
     yValues = list(map(float, yValues.split(',')))
     # Convert x values to strings
     xValues = xValues.split(',')
-    # Generate random colors
-    colormap = plt.cm.tab10
-    num_colors = len(xValues)
-    colors = [colormap(i % colormap.N) for i in range(num_colors)]
+    # Generate unique random colors
+    numColors = len(xValues)
+    randColors = []
+    while len(randColors) < numColors:
+        randColor = mcolors.to_hex((random.random(), random.random(), random.random()))
+        if randColor not in randColors:
+            randColors.append(randColor)
 
 
     # Create the plot
     plt.figure(figsize=(18, 16))
-    plt.bar(xValues, yValues, color=colors)
+    plt.bar(xValues, yValues, color=randColors)
     plt.title(title, fontsize=40, pad=28)
     plt.xlabel(xLabel, fontsize=32, labelpad=30)
     plt.ylabel(yLabel, fontsize=32, labelpad=30)

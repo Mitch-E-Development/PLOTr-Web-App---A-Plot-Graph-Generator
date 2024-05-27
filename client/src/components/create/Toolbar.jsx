@@ -6,7 +6,7 @@ const Toolbar = ({
   handleAddValue,
   handleRemoveValue,
   handleClearForm,
-  handleGeneratePlot,
+  handleFormSubmit,
   handlePlotDownload,
 }) => {
   return (
@@ -92,7 +92,7 @@ const Toolbar = ({
               hover:shadow-cyan-500
               text-white
               font-semibold"
-            onClick={() => handleGeneratePlot(plotData)}
+            onClick={() => handleFormSubmit(plotData)}
           >
             GENERATE
           </button>

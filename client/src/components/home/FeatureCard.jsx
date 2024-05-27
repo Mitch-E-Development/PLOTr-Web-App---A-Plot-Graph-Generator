@@ -12,10 +12,9 @@ const FeatureCard = ({ imageUrl, name, description }) => {
         rounded-lg 
         min-h-[160px] 
         bg-gray-200 
-        shadow-md 
-        shadow-indigo-500 
-        hover:shadow-lg 
-        hover:shadow-green-500 
+        shadow-black
+        hover:shadow-indigo-500 
+        shadow-lg 
         text-center 
         justify-between
         gap-10

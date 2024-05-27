@@ -18,6 +18,38 @@ const helpInfo = [
     ],
   },
   {
+    title: "Scatter Plots",
+    image:
+      "https://thirdspacelearning.com/wp-content/uploads/2022/04/Scatter-Graph-what-is-card-3-1.png",
+    intro:
+      "Scatter plots are used to visualize the relationship between two numerical variables.",
+    main: "In a scatter plot, each data point is represented by a marker, and the position of the marker on the graph corresponds to the values of the two variables. Scatter plots are effective for identifying patterns, trends, and relationships between variables.",
+    conclusion:
+      "Scatter plots are commonly used in various fields, including statistics, data analysis, and scientific research.",
+    steps: [
+      "Enter your data: Make sure you have the dataset ready with at least two columns, one for the x-axis values and one for the y-axis values.",
+      "Select Scatter Plot: Choose the Scatter Plot option from the plot type menu.",
+      "View the Plot: PLOTr will generate the scatter plot based on your data.",
+      "Download: Once satisfied, download the generated image of your plot.",
+    ],
+  },
+  {
+    title: "Stair Plots",
+    image:
+      "https://octave.sourceforge.io/octave/function/images/stairs_101.png",
+    intro:
+      "Stair plots, also known as step plots, are similar to line plots but have a distinct visual style.",
+    main: "In a stair plot, data points are connected by horizontal and vertical lines, creating a step-like appearance. These plots are useful for visualizing data that changes abruptly or in discrete steps.",
+    conclusion:
+      "Stair plots are particularly effective for showing cumulative data or sequences of events.",
+    steps: [
+      "Enter your data: Make sure you have the dataset ready with at least two columns, one for the x-axis values and one for the y-axis values.",
+      "Select Stair Plot: Choose the Stair Plot option from the plot type menu.",
+      "View the Plot: PLOTr will generate the stair plot based on your data.",
+      "Download: Once satisfied, download the generated image of your plot.",
+    ],
+  },
+  {
     title: "Bar Plots",
     image:
       "https://thirdspacelearning.com/wp-content/uploads/2022/04/Bar-Charts-What-is-card.png",
@@ -78,11 +110,10 @@ const HelpModal = ({ plotData, toggleModal }) => {
           <div
             className="
               border-0 
-              rounded-lg 
-              shadow-md 
-              shadow-indigo-500
-              hover:shadow-lg
-              hover:shadow-green-500
+              rounded-lg d 
+              shadow-black
+              hover:shadow-indigo-500
+              shadow-lg
               relative 
               flex 
               flex-col 
@@ -92,7 +123,9 @@ const HelpModal = ({ plotData, toggleModal }) => {
               focus:outline-none"
           >
             <div className="p-4 flex justify-between">
-              <h2 className="text-3xl text-center capitalize">Help</h2>
+              <h2 className="text-3xl text-center capitalize font-semibold">
+                Help
+              </h2>
               <div className="flex items-center justify-end ">
                 <button
                   className="
@@ -100,11 +133,14 @@ const HelpModal = ({ plotData, toggleModal }) => {
                     p-1 
                     px-3 
                     rounded-lg 
-                    shadow-lg
+                    shadow-md
+                    shadow-black
                     hover:shadow-indigo-500
                     hover:bg-indigo-200 
                     hover:text-indigo-500 
-                    text-white"
+                    text-white
+                    text-xl
+                    font-semibold"
                   onClick={() => toggleModal()}
                 >
                   x
@@ -124,7 +160,7 @@ const HelpModal = ({ plotData, toggleModal }) => {
                 rounded-b-lg
                 text-lg"
             >
-              <h3 className="text-2xl text-center capitalize">
+              <h3 className="text-3xl text-center capitalize">
                 {plotInfo.title}
               </h3>
               <p>{plotInfo.intro}</p>

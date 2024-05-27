@@ -2,25 +2,33 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 import numpy as np
+import random
+import matplotlib.colors as mcolors
 
 def scatter_plot_generator(title, xLabel, yLabel, xValues, yValues):
+    
     # Convert y values to floats
     yValues = list(map(float, yValues.split(',')))
-
     # Convert x values to strings
     xValues = xValues.split(',')
 
-    # set marker sizes to refelct y value
-    markerSizes = yValues
+    # Normalize the y values
+    normalizedY = np.array(yValues) / max(yValues) * 100
+    # Determine marker sizes based on normalized y values
+    markerSizes = normalizedY * 100  # You can adjust the scaling factor as needed
 
-    # Generate random colors
-    colormap = plt.cm.tab10
-    num_colors = len(xValues)
-    colors = [colormap(i % colormap.N) for i in range(num_colors)]
+    # Generate unique random colors
+    numColors = len(xValues)
+    randColors = []
+    while len(randColors) < numColors:
+        randColor= mcolors.to_hex((random.random(), random.random(), random.random()))
+        if randColor not in randColors:
+            randColors.append(randColor)
+
 
     # Create the scatter plot
     plt.figure(figsize=(18, 16))
-    plt.scatter(xValues, yValues, s=markerSizes,  c=colors, cmap='viridis')
+    plt.scatter(xValues, yValues, s=markerSizes,  c=randColors)
     plt.title(title, fontsize=40, pad=28)
     plt.xlabel(xLabel, fontsize=32, labelpad=30)
     plt.ylabel(yLabel, fontsize=32, labelpad=30)

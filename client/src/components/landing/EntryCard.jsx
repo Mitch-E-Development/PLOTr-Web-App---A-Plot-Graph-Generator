@@ -12,7 +12,8 @@ const EntryCard = () => {
         justify-center 
         items-center 
         rounded-lg 
-        shadow-xl 
+        shadow-lg
+        shadow-black 
         hover:shadow-indigo-500 
         bg-opacity-80
         space-y-4 
@@ -44,7 +45,6 @@ const EntryCard = () => {
                 rounded-lg 
                 hover:bg-indigo-300
                 hover:text-indigo-500
-                
                 shadow-lg
                 hover:shadow-indigo-500
                 text-white

@@ -14,7 +14,9 @@ const Banner = () => {
         gap-10
         md:grid-cols-2
         bg-fixed
-        
+        shadow-sm
+        shadow-b
+        shadow-indigo-500
         "
       style={{
         backgroundImage: `url(https://developer-blogs.nvidia.com/wp-content/uploads/2023/03/abstract-bar-graph.jpg)`,
